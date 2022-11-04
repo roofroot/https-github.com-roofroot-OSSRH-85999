@@ -5,7 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.Layout
 
 @Composable
-fun StaggeredGrid(SCREEN_W:Int,SCREEN_H:Int,modifier: Modifier = Modifier, counts: Int, content: @Composable () -> Unit) {
+fun StaggeredGrid(
+    modifier: Modifier = Modifier,
+    SCREEN_W: Int,
+    counts: Int,
+    content: @Composable () -> Unit
+) {
     Layout(modifier = modifier, content = content) { measurables, constraints ->
         //每个元素的x轴位置
         val leftLocations = Array(counts) { 0 }
@@ -27,8 +32,7 @@ fun StaggeredGrid(SCREEN_W:Int,SCREEN_H:Int,modifier: Modifier = Modifier, count
             left += placeable.width
             placeable
         }
-        val width = SCREEN_W
-        layout(width, top + 55) {
+        layout(SCREEN_W, top + 55) {
             placeables.forEachIndexed { index, placeable ->
                 //重置每一个元素的宽高
                 placeable.placeRelative(x = leftLocations[index], topLocations[index])
@@ -36,3 +40,4 @@ fun StaggeredGrid(SCREEN_W:Int,SCREEN_H:Int,modifier: Modifier = Modifier, count
         }
     }
 }
+
